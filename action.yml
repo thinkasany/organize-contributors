@@ -1,0 +1,16 @@
+name: "organize-contributors"
+description: "GitHub Action organize-contributors"
+author: "thinkasany"
+branding:
+  icon: "check-circle"
+  color: "gray-dark"
+inputs:
+  orgName:
+    description: "your orgName"
+    required: true
+outputs:
+  result:
+    description: "The result of api"
+runs:
+  using: node16
+  main: 'dist/index.js'

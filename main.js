@@ -9,7 +9,7 @@ const github = require("@actions/github");
     const context = github.context;
     const owner = context.repo.owner;
     const repoName = context.repo.repo;
-    const orgName = core.getInput("orgName", { required: true });
+    const orgName = core.getInput("organize_name", { required: true });
     const token = core.getInput("github_token", { required: true });
     log.info(`orgName: ${orgName}; repoName: ${repoName}; owner:${owner};`);
     const commitMessage =
@@ -17,9 +17,13 @@ const github = require("@actions/github");
     const pngPath = core.getInput("png_Path") || "contributors.png";
     const jsonPath = core.getInput("json_path") || "json/data.json";
     const branch = core.getInput("branch") || "master";
-    const committerName = core.getInput("committer_name") || "contributors bot";
+    const committerName = core.getInput("committer_name") || "github-actions";
     const committerEmail =
-      core.getInput("committer_email") || "action@gmail.com";
+      core.getInput("committer_email") || "actions@github.com";
+
+    console.log("committerName", committerName, committerEmail);
+    const limitNumber = Number(core.getInput("limit_number")) || 200;
+    const excludesList = core.getInput("excludes_list").split(",") || [];
 
     const payload = {
       orgName,
@@ -31,7 +35,9 @@ const github = require("@actions/github");
       pngPath,
       commitMessage,
       committerEmail,
-      committerName
+      committerName,
+      limitNumber,
+      excludesList
     };
     await Action(payload);
     log.info("organize-contributors Action 成功结束运行！", orgName);

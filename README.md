@@ -1,5 +1,5 @@
 # 🌊自我介绍
-我是一个生成 contribors.png 的 github-action，我和市面上其他的不一样，我专门解决整个 organize 的 commit 统计，以往只能针对仓库，使用我的话可以贴在社区主页的 .github 中
+我是一个生成 contributors.png 的 github-action，我和市面上其他的不一样，我专门解决整个 Organization 的 commit 统计，以往只能针对仓库，使用我的话可以贴在社区主页的 .github 中
 
 # 🚀谁在用我
 | # | 社区| 描述 | 热度 |
@@ -21,7 +21,7 @@
 ### yml配置
 **orgName**, **github_token** 必填，其他选填
 ```
-orgName: 'doocs' # 组织名字 如: doocs / hellof2e
+organize_name: 'doocs' # 组织名字 如: doocs / hellof2e
 github_token: ${{ secrets.GH_TOKEN }} # 自定义, 但是读写权限要配足
 png_path: images-doocs/contributors.png # png上传的路径
 json_path: json-doocs/data.json # json上传的路径
@@ -47,7 +47,7 @@ jobs:
     steps:
       - uses: thinkasany/organize-contributors@master
         with:
-          orgName: 'doocs'
+          organize_name: 'doocs'
           github_token: ${{ secrets.GH_TOKEN }}
           png_path: images-doocs/contributors.png
           json_path: json-doocs/data.json
@@ -71,7 +71,7 @@ jobs:
     steps:
       - uses: thinkasany/organize-contributors@master
         with:
-          orgName: 'hellof2e'
+          organize_name: 'hellof2e'
           github_token: ${{ secrets.GH_TOKEN }}
           png_path: images-hello/contributors.png
           json_path: json-hello/data.json

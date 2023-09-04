@@ -1,7 +1,10 @@
 # 🌊自我介绍
-```
 我是一个生成 contribors.png 的 github-action，我和市面上其他的不一样，我专门解决整个 organize 的 commit 统计，以往只能针对仓库，使用我的话可以贴在社区主页的 .github 中
-```
+
+# 🚀谁在用我
+| # | 社区| 描述 | 热度 |
+| --- | --- | --- | --- |
+| 1   | [Doocs](https://github.com/doocs)           |     GitHub 技术社区 Doocs，致力于打造一个内容完整、持续成长的互联网开发者学习生态圈！       |2.8k followers
 
 # 🍔 使用指南
 ### [示例仓库](https://github.com/thinkasany/test)

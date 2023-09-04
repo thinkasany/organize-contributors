@@ -4,7 +4,8 @@ const { Octokit } = require("@octokit/core");
 const puppeteer = require("puppeteer");
 
 /** 生成数组 **/
-const outputArray = async orgName => {
+const outputArray = async payload => {
+  const { orgName, limitNumber, excludesList } = payload;
   const apiUrl = `https://api.github.com/orgs/${orgName}/repos`;
   const allRepos = await axios.get(apiUrl);
   const repos = allRepos.data.map(i => i.full_name);
@@ -30,6 +31,9 @@ const outputArray = async orgName => {
         const contributions = contributor.contributions; // 贡献次数
         const avatar = contributor.avatar_url;
         // console.log(contributor);
+
+        if (excludesList.includes(username)) continue // 给用户提供排除某些用户的功能
+
         // 如果该贡献者已存在于合并后的贡献者数据中，则累加贡献次数
         if (mergedContributors[username]) {
           mergedContributors[username] = {
@@ -54,7 +58,7 @@ const outputArray = async orgName => {
   const contributorsArray = Object.values(mergedContributors);
   // 根据 contributions 属性从大到小排序
   contributorsArray.sort((a, b) => b.contributions - a.contributions);
-  return contributorsArray;
+  return contributorsArray.slice(0, limitNumber);
 };
 
 /** 生成图片 */
@@ -128,14 +132,16 @@ const Action = async payload => {
     pngPath,
     commitMessage,
     committerName,
-    committerEmail
+    committerEmail,
+    limitNumber,
+    excludesList
   } = payload;
   console.log("payload in action", payload);
   const octokit = new Octokit({
     auth: token
   });
   console.log("octokit", octokit);
-  const contributors = await outputArray(orgName);
+  const contributors = await outputArray({ orgName, limitNumber, excludesList });
   let imageContent;
   try {
     await outputPng(contributors);

@@ -9,14 +9,24 @@ inputs:
     description: Your GitHub token for authentication.
     required: true
 
-  orgName:
-    description: "your orgName"
+  organize_name:
+    description: "your organize name"
     required: true
 
   branch:
     description: "your target branch"
     required: false
     default: master
+
+  limit_number:
+    description: Limit to 200 people.
+    required: false
+    default: 200
+  
+  excludes_list:
+    description: list to exclude.
+    required: false
+    default: ['ImgBotApp', 'github-actions[bot]']
 
   png_path:
     description: Path to save the generated PNG.

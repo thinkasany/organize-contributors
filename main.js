@@ -19,7 +19,7 @@ const github = require("@actions/github");
     const branch = core.getInput("branch") || "master";
     const committerName = core.getInput("committer_name") || "github-actions";
     const committerEmail =
-      core.getInput("committer_email") || "github-actions@github.com";
+      core.getInput("committer_email") || "actions@github.com";
 
     console.log('committerName', committerName, committerEmail);
     const limitNumber = Number(core.getInput("limit_number")) || 200;

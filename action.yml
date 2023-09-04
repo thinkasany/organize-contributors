@@ -51,7 +51,7 @@ inputs:
   committer_email: 
     description: Commit email of the github action.
     required: false
-    default: "github-actions@github.com"  
+    default: "actions@github.com"  
 
 outputs:
   result:

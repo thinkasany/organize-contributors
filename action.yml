@@ -46,12 +46,12 @@ inputs:
   committer_name: 
     description: Commit name of the github action.
     required: false
-    default: "contributors bot" 
+    default: "github-actions" 
 
   committer_email: 
     description: Commit email of the github action.
     required: false
-    default: "action@gmail.com"  
+    default: "github-actions@github.com"  
 
 outputs:
   result:

@@ -32,7 +32,7 @@ const outputArray = async payload => {
         const avatar = contributor.avatar_url;
         // console.log(contributor);
 
-        if (excludesList.includes(username)) continue // 给用户提供排除某些用户的功能
+        if (excludesList.includes(username)) continue; // 给用户提供排除某些用户的功能
 
         // 如果该贡献者已存在于合并后的贡献者数据中，则累加贡献次数
         if (mergedContributors[username]) {
@@ -121,6 +121,22 @@ const outputPng = async contributors => {
   console.log("PNG文件已保存");
 };
 
+/**
+ * 返回比对的数据是否有差异，有差异则继续，无差异则中断
+ * @returns {boolean}
+ */
+const diff = (upstream, contributors) => {
+  if (upstream.length !== contributors.length) {
+    return true;
+  }
+  for (let i = 0; i < upstream.length; i++) {
+    if (upstream[i].username !== contributors[i].username) {
+      return true;
+    }
+  }
+  return false;
+};
+
 const Action = async payload => {
   const {
     orgName,
@@ -141,7 +157,32 @@ const Action = async payload => {
     auth: token
   });
   console.log("octokit", octokit);
-  const contributors = await outputArray({ orgName, limitNumber, excludesList });
+  const contributors = await outputArray({
+    orgName,
+    limitNumber,
+    excludesList
+  });
+  /** 线上分支的数据 */
+  let upstream;
+  try {
+    const upstreamApi = `https://api.github.com/repos/${owner}/${repo}/contents/${jsonPath}?ref=${branch}`;
+    const response = await axios.get(upstreamApi);
+    // GitHub返回的内容被Base64编码，需要解码, 解析JSON内容
+    upstream = JSON.parse(
+      Buffer.from(response.data.content, "base64").toString("utf-8")
+    );
+    console.log("upstreamApi", upstreamApi);
+    console.log("upstream", upstream.length);
+  } catch (error) {
+    console.error("获取JSON文件失败, 也可能是没有这个文件:", error);
+  }
+
+  // 通过比对远端数据是否变化来决定是否继续向下执行
+  if (!diff(upstream, contributors)) {
+    console.log("数据没有差异，执行中断");
+    return;
+  }
+
   let imageContent;
   try {
     await outputPng(contributors);

@@ -5,9 +5,44 @@ branding:
   icon: "check-circle"
   color: "gray-dark"
 inputs:
+  github_token:
+    description: Your GitHub token for authentication.
+    required: true
+
   orgName:
     description: "your orgName"
     required: true
+
+  branch:
+    description: "your target branch"
+    required: false
+    default: master
+
+  png_path:
+    description: Path to save the generated PNG.
+    required: false
+    default: contributors.png
+
+  json_path:
+    description: Path to save the generated JSON.
+    required: false
+    default: data.json
+
+  commit_message:
+    description: Commit message of the github action.
+    required: false
+    default: "chore: update contributors [skip ci]"  
+
+  committer_name: 
+    description: Commit name of the github action.
+    required: false
+    default: "contributors bot" 
+
+  committer_email: 
+    description: Commit email of the github action.
+    required: false
+    default: "action@gmail.com"  
+
 outputs:
   result:
     description: "The result of api"

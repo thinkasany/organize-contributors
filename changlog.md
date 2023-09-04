@@ -4,6 +4,7 @@
 2. 允许排除某些用户，比如参数 `excludes_list: "ImgBotApp, github-actions[bot]"`
 3. 默认邮箱用 actions@github.com
 4. fix: 没有修改变化的空提交
+5. fix: excludes_list trim
 
 
 [根据issue建议优化](https://github.com/thinkasany/organize-contributors/issues/3)

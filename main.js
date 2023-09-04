@@ -20,9 +20,11 @@ const github = require("@actions/github");
     const committerName = core.getInput("committer_name") || "github-actions";
     const committerEmail =
       core.getInput("committer_email") || "github-actions@github.com";
-    const limitNumber = core.getInput("limit_number") || 200;
-    const excludesList = core.getInput("excludes_list") || ['ImgBotApp', 'github-actions[bot]'];
-
+    const limitNumber = Number(core.getInput("limit_number")) || 200;
+    const excludesList = core.getInput("excludes_list").split(",") || [
+      "ImgBotApp",
+      "github-actions[bot]"
+    ];
 
     const payload = {
       orgName,

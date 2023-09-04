@@ -21,12 +21,12 @@ inputs:
   limit_number:
     description: Limit to 200 people.
     required: false
-    default: 200
+    default: '200'
   
   excludes_list:
     description: list to exclude.
     required: false
-    default: ['ImgBotApp', 'github-actions[bot]']
+    default: "ImgBotApp, github-actions[bot]"
 
   png_path:
     description: Path to save the generated PNG.

@@ -178,7 +178,7 @@ const Action = async payload => {
   }
 
   // 通过比对远端数据是否变化来决定是否继续向下执行
-  if (!diff(upstream, contributors)) {
+  if (upstream?.length && !diff(upstream, contributors)) {
     console.log("数据没有差异，执行中断");
     return;
   }

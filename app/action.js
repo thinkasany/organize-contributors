@@ -7,8 +7,18 @@ const puppeteer = require("puppeteer");
 const outputArray = async payload => {
   const { orgName, limitNumber, excludesList } = payload;
   const apiUrl = `https://api.github.com/orgs/${orgName}/repos`;
-  const allRepos = await axios.get(apiUrl);
-  const repos = allRepos.data.map(i => i.full_name);
+  const repos = []
+  const reposResponse = await axios.get(apiUrl);
+  if (reposResponse.status === 200) {
+    const repositories = reposResponse.data;
+    repositories.forEach(repo => {
+      if (!repo.fork) {
+        repos.push(repo.full_name)
+      }
+    });
+  } else {
+    console.error(`获取repos数据失败。状态码: ${reposResponse.status}`);
+  }
   console.log(repos);
   const mergedContributors = {}; // 合并后的贡献者数据
   for (const repo of repos) {

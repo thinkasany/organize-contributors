@@ -8,3 +8,9 @@
 
 
 [根据issue建议优化](https://github.com/thinkasany/organize-contributors/issues/3)
+
+# 2023.9.5
+
+修复功能: 
+1. [fix: upstream is undefined](https://github.com/thinkasany/organize-contributors/pull/7)
+2. 过滤 fork 的仓库统计，避免影响到原仓库的开发者 [fix: remove fork's repo statistics ](https://github.com/thinkasany/organize-contributors/pull/8)

@@ -93,13 +93,16 @@ const outputPng = async contributors => {
         margin: 1px 1px;
         border-radius: 50%;
     }
+    #container {
+      padding-bottom: 5px;
+    }
 `;
   // 创建一个HTML字符串，其中包含多个图片
   const htmlContent = `
     <style>${customStyle}</style>
-    ${avatars
+    <div id="container"> ${avatars
       .map(avatarUrl => `<img src="${avatarUrl}" class="custom" />`)
-      .join("")}
+      .join("")}</div>
 `;
 
   // 设置页面内容
@@ -116,7 +119,7 @@ const outputPng = async contributors => {
 
   // 获取包含所有图片的容器的尺寸
   const containerSize = await page.evaluate(() => {
-    const container = document.body;
+    const container = document.getElementById("container");
     const rect = container.getBoundingClientRect();
     return { width: rect.width, height: rect.height + 10 };
   });
